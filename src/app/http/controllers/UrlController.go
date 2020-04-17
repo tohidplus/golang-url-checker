@@ -3,12 +3,14 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 	"url_project/src/app/models"
 	"url_project/src/database"
 	"url_project/src/helpers/auth"
 	"url_project/src/helpers/response"
+	url2 "url_project/src/helpers/url"
 )
 
 type UrlController Controller
@@ -35,7 +37,7 @@ func (c UrlController) Store(writer http.ResponseWriter, request *http.Request, 
 }
 
 func (c UrlController) Show(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	ok, url := getAuthUserUrl(request, params)
+	ok, url := getAuthUserUrl(request, params.ByName("id"))
 	if !ok {
 		response.NotFound(writer)
 		return
@@ -44,7 +46,7 @@ func (c UrlController) Show(writer http.ResponseWriter, request *http.Request, p
 }
 
 func (c UrlController) Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	ok, url := getAuthUserUrl(request, params)
+	ok, url := getAuthUserUrl(request, params.ByName("id"))
 	if !ok {
 		response.NotFound(writer)
 		return
@@ -59,13 +61,25 @@ func (c UrlController) Update(writer http.ResponseWriter, request *http.Request,
 }
 
 func (c UrlController) Destroy(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	ok, url := getAuthUserUrl(request, params)
+	ok, url := getAuthUserUrl(request, params.ByName("id"))
 	if !ok {
 		response.NotFound(writer)
 		return
 	}
 	database.DB.Delete(url)
 	response.Json(writer, "", http.StatusNoContent)
+}
+func (c UrlController) Call(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	ok, url := getAuthUserUrl(request, params.ByName("id"))
+	if !ok {
+		response.NotFound(writer)
+		return
+	}
+	res:=url2.Call(url)
+	byteBody, _ :=ioutil.ReadAll(res.Body)
+	var body map[string]interface{}
+	_ = json.Unmarshal(byteBody, &body)
+	response.Json(writer,body, http.StatusOK)
 }
 
 type parsedFields struct {
@@ -90,8 +104,7 @@ func getParsedFields(request *http.Request) parsedFields {
 	}
 }
 
-func getAuthUserUrl(request *http.Request, params httprouter.Params) (bool, models.Url) {
-	id := params.ByName("id")
+func getAuthUserUrl(request *http.Request, id interface{}) (bool, models.Url) {
 	_, user := auth.GetUser(request)
 	url := models.Url{}
 	database.DB.Where(map[string]interface{}{"id": id, "user_id": user.ID}).First(&url)

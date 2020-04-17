@@ -27,6 +27,16 @@ func newUrlRouter() UrlRouter {
 	}
 }
 
+func newResultRouter() ResultRouter {
+	return ResultRouter{
+		controller: controllers.NewResultController(),
+	}
+}
+
+func newNotificationRouter() NotificationRouter {
+	return NotificationRouter{controller: controllers.NewNotificationController()}
+}
+
 func Prefix(path string) string {
 	return "/api" + path
 }
@@ -37,5 +47,7 @@ func RegisterHttpRoutes() *httprouter.Router {
 	newIndexRouter().Routes(r)
 	newUserRouter().Routes(r)
 	newUrlRouter().Routes(r)
+	newResultRouter().Routes(r)
+	newNotificationRouter().Routes(r)
 	return r
 }

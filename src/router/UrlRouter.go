@@ -41,6 +41,11 @@ func (urlRouter UrlRouter) Routes(router *httprouter.Router) {
 			),
 		),
 	)
+	router.GET(Prefix("/url/:id/call"),
+		middlewares.Auth(
+			urlRouter.controller.Call,
+		),
+	)
 	router.DELETE(Prefix("/url/:id"),
 		middlewares.Auth(
 			urlRouter.controller.Destroy,

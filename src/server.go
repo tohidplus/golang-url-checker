@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"url_project/src/database"
 	"url_project/src/exception"
+	"url_project/src/helpers/url"
 	"url_project/src/router"
 )
 
@@ -20,5 +21,6 @@ func init() {
 }
 func main() {
 	defer database.DB.Close()
+	url.RunSchedule()
 	log.Fatal(http.ListenAndServe(":8080", router.RegisterHttpRoutes()))
 }

@@ -3,7 +3,6 @@ package models
 import (
 	"database/sql/driver"
 	"errors"
-	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"time"
 )
@@ -15,12 +14,15 @@ type Password string
 |-------------------------------------------------------
 */
 type User struct {
-	gorm.Model
+	ID        uint `json:"id" gorm:"primary_key"`
 	Name          string         `json:"name" gorm:"type:varchar(255); NOT NULL"`
 	Email         string         `json:"email" gorm:"type:varchar(255); NOT NULL; unique_index"`
 	Password      Password       `gorm:"type:varchar(255); NOT NULL"`
 	Urls          []Url          `json:"urls" gorm:"foreignKey:UserID"`
 	Notifications []Notification `json:"notifications" gorm:"foreignKey:UserID"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time	`json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at" sql:"index"`
 }
 
 func (pass Password) Value() (driver.Value, error) {

@@ -14,10 +14,15 @@ import (
 type UserController Controller
 
 func (c UserController) Show(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	responseUser := models.ResponseUser{}
-	//u:=models.User{}
-	database.DB.Where("id = ?", "1").First(&responseUser)
-	response.Json(writer, responseUser, http.StatusOK)
+	user := models.ResponseUser{}
+	_, authUser := auth.GetUser(request)
+	//user:=models.User{}
+	database.DB.Where("id = ?", authUser.ID).First(&user)
+	if user.ID == 0 {
+		response.NotFound(writer)
+		return
+	}
+	response.Json(writer, user, http.StatusOK)
 }
 
 func (c UserController) Register(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {

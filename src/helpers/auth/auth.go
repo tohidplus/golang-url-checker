@@ -38,7 +38,7 @@ func AttemptLogin(request *http.Request) (bool, Token) {
 }
 
 func GetToken(user models.User) (Token, error) {
-	expiredAt := time.Now().Add(2 * time.Hour)
+	expiredAt := time.Now().Add(24 * time.Hour)
 	claims := getClaim(user, expiredAt)
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := jwtToken.SignedString(jwtKey)

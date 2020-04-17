@@ -9,6 +9,12 @@ import (
 
 type JsonProperty map[string]interface{}
 
+/*
+|-------------------------------------------------------
+| Main url  model
+|-------------------------------------------------------
+*/
+
 type Url struct {
 	ID            uint           `json:"id" gorm:"primary_key"`
 	UserID        uint           `json:"user_id" gorm:"NOT NULL"`
@@ -16,6 +22,8 @@ type Url struct {
 	Method        string         `json:"method" gorm:"type:enum('GET','POST','PATCH','PUT','DELETE')"`
 	Headers       JsonProperty   `json:"headers" gorm:"type:json; NOT NULL"`
 	Body          JsonProperty   `json:"body" gorm:"type:json; NOT NULL"`
+	ScheduleType  string         `json:"schedule_type"`
+	ScheduleValue uint            `json:"schedule_value"`
 	Threshold     uint           `json:"threshold" gorm:"NOT NULL"`
 	FailedCount   uint           `json:"failed_count" gorm:"DEFAULT:0; NOT NULL"`
 	Notifications []Notification `json:"notifications" gorm:"foreignKey:UrlID"`
@@ -25,6 +33,11 @@ type Url struct {
 	DeletedAt     *time.Time     `json:"deleted_at" sql:"index"`
 }
 
+/*
+|-------------------------------------------------------
+| Mutator
+|-------------------------------------------------------
+*/
 func (jp JsonProperty) Value() (driver.Value, error) {
 	j, err := json.Marshal(jp)
 	return j, err
