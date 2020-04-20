@@ -2,12 +2,12 @@ package auth
 
 import (
 	"github.com/dgrijalva/jwt-go"
+	"github.com/tohidplus/url_project/src/app/models"
+	"github.com/tohidplus/url_project/src/database"
+	"github.com/tohidplus/url_project/src/exception"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"time"
-	"url_project/src/app/models"
-	"url_project/src/database"
-	"url_project/src/exception"
 )
 
 //Todo:: move to environment variable

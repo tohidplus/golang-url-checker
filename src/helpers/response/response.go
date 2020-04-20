@@ -2,8 +2,8 @@ package response
 
 import (
 	"encoding/json"
+	"github.com/tohidplus/url_project/src/exception"
 	"net/http"
-	"url_project/src/exception"
 )
 
 func Json(writer http.ResponseWriter, data interface{}, statusCode int) {

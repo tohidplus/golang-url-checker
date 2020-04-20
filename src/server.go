@@ -3,12 +3,12 @@ package main
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/tohidplus/url_project/src/database"
+	"github.com/tohidplus/url_project/src/exception"
+	"github.com/tohidplus/url_project/src/helpers/url"
+	"github.com/tohidplus/url_project/src/router"
 	"log"
 	"net/http"
-	"url_project/src/database"
-	"url_project/src/exception"
-	"url_project/src/helpers/url"
-	"url_project/src/router"
 )
 
 func init() {
@@ -22,5 +22,5 @@ func init() {
 func main() {
 	defer database.DB.Close()
 	url.RunSchedule()
-	log.Fatal(http.ListenAndServe(":8080", router.RegisterHttpRoutes()))
+	log.Fatal(http.ListenAndServe(":8085", router.RegisterHttpRoutes()))
 }

@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"github.com/julienschmidt/httprouter"
+	"github.com/tohidplus/url_project/src/app/models"
+	"github.com/tohidplus/url_project/src/database"
+	"github.com/tohidplus/url_project/src/helpers/response"
 	"net/http"
-	"url_project/src/app/models"
-	"url_project/src/database"
-	"url_project/src/helpers/response"
 )
 
 type ResultController Controller

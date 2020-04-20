@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/jinzhu/gorm"
-	"url_project/src/app/models"
+	"github.com/tohidplus/url_project/src/app/models"
 )
 
 var DB *gorm.DB

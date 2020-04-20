@@ -2,9 +2,9 @@ package middlewares
 
 import (
 	"github.com/julienschmidt/httprouter"
+	"github.com/tohidplus/url_project/src/helpers/auth"
+	"github.com/tohidplus/url_project/src/helpers/auth/errors"
 	"net/http"
-	"url_project/src/helpers/auth"
-	"url_project/src/helpers/auth/errors"
 )
 
 func Auth(next httprouter.Handle) httprouter.Handle {

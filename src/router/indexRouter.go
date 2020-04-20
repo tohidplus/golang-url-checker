@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"url_project/src/app/http/controllers"
+	"github.com/tohidplus/url_project/src/app/http/controllers"
 )
 
 type IndexRouter struct {

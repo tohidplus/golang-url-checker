@@ -3,14 +3,14 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
+	"github.com/tohidplus/url_project/src/app/models"
+	"github.com/tohidplus/url_project/src/database"
+	"github.com/tohidplus/url_project/src/helpers/auth"
+	"github.com/tohidplus/url_project/src/helpers/response"
+	url2 "github.com/tohidplus/url_project/src/helpers/url"
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"url_project/src/app/models"
-	"url_project/src/database"
-	"url_project/src/helpers/auth"
-	"url_project/src/helpers/response"
-	url2 "url_project/src/helpers/url"
 )
 
 type UrlController Controller

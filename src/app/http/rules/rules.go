@@ -2,10 +2,10 @@ package rules
 
 import (
 	"encoding/json"
+	"github.com/tohidplus/url_project/src/database"
 	"regexp"
 	"strconv"
 	"strings"
-	"url_project/src/database"
 )
 
 func CheckEmail(email interface{}) bool {

@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"github.com/carlescere/scheduler"
 	"github.com/jinzhu/gorm"
+	"github.com/tohidplus/url_project/src/app/models"
+	"github.com/tohidplus/url_project/src/database"
+	"github.com/tohidplus/url_project/src/exception"
 	"net/http"
 	"strconv"
-	"url_project/src/app/models"
-	"url_project/src/database"
-	"url_project/src/exception"
 )
 
 func Call(url models.Url) *http.Response {

@@ -2,9 +2,9 @@ package store
 
 import (
 	"github.com/julienschmidt/httprouter"
+	errors2 "github.com/tohidplus/url_project/src/app/http/requests/errors"
+	"github.com/tohidplus/url_project/src/app/http/rules"
 	"net/http"
-	errors2 "url_project/src/app/http/requests/errors"
-	"url_project/src/app/http/rules"
 )
 
 func UrlStoreRequest(next httprouter.Handle) httprouter.Handle {

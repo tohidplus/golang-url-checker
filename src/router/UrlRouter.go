@@ -2,9 +2,9 @@ package router
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"url_project/src/app/http/controllers"
-	"url_project/src/app/http/middlewares"
-	"url_project/src/app/http/requests/url/store"
+	"github.com/tohidplus/url_project/src/app/http/controllers"
+	"github.com/tohidplus/url_project/src/app/http/middlewares"
+	"github.com/tohidplus/url_project/src/app/http/requests/url/store"
 )
 
 type UrlRouter struct {
